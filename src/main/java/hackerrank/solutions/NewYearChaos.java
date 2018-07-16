@@ -2,6 +2,7 @@ package hackerrank.solutions;
 
 import java.util.Scanner;
 
+// https://www.hackerrank.com/challenges/new-year-chaos/problem
 public class NewYearChaos {
 
   // Complete the minimumBribes function below.
