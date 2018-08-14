@@ -20,31 +20,36 @@ public class CutTheTree {
   static int totalWeight = 0;
 
   static int cutTheGraph() {
-    return diffDFS(1);
+    return diffDfs(1);
   }
 
-  static Integer diffDFS(Integer node) {
+  static Integer diffDfs(Integer node) {
     visited[node - 1] = true;
     int diff = Integer.MAX_VALUE;
     Set<Integer> children = graph.get(node);
     for (Integer child : children) {
       if (!visited[child - 1]) {
-        int childDiff = diffDFS(child);
-        if (diff > childDiff)
+        int childDiff = diffDfs(child);
+        if (diff > childDiff) {
           diff = childDiff;
+        }
         data[node - 1] = data[node - 1] + data[child - 1];
       }
     }
     int newDiff = Math.abs(totalWeight - 2 * data[node - 1]);
-    if (diff > newDiff)
+    if (diff > newDiff) {
       return newDiff;
-    else
+    } else {
       return diff;
+    }
   }
 
+  /**
+   * 
+   * @param args
+   * @throws IOException
+   */
   public static void main(String[] args) throws IOException {
-    BufferedWriter bufferedWriter = new BufferedWriter(
-        new FileWriter(System.getenv("OUTPUT_PATH")));
     int n = scanner.nextInt();
     data = new int[n];
     visited = new boolean[n];
@@ -58,15 +63,18 @@ public class CutTheTree {
       int u = scanner.nextInt();
       int v = scanner.nextInt();
 
-      if (!graph.containsKey(u))
+      if (!graph.containsKey(u)) {
         graph.put(u, new HashSet<Integer>());
+      }
       graph.get(u).add(v);
-      if (!graph.containsKey(v))
+      if (!graph.containsKey(v)) {
         graph.put(v, new HashSet<Integer>());
+      }
       graph.get(v).add(u);
     }
     int result = cutTheGraph();
-
+    final BufferedWriter bufferedWriter = new BufferedWriter(
+        new FileWriter(System.getenv("OUTPUT_PATH")));
     bufferedWriter.write(String.valueOf(result));
     bufferedWriter.newLine();
     bufferedWriter.close();
